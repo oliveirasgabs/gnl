@@ -6,7 +6,7 @@
 /*   By: gabrioli <gabrioli@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 16:05:23 by gabrioli          #+#    #+#             */
-/*   Updated: 2026/01/02 18:01:02 by gabrioli         ###   ########.fr       */
+/*   Updated: 2026/01/02 18:50:10 by gabrioli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ static char	*fill_line(int fd, char *buffer, char *left_str)
 	return (left_str);
 }
 static char	*set_line(char	*line)
+{
+
+}
 
 char	*get_next_line(int fd)
 {
