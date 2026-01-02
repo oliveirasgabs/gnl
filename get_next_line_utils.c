@@ -6,7 +6,7 @@
 /*   By: gabrioli <gabrioli@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 20:43:29 by gabrioli          #+#    #+#             */
-/*   Updated: 2025/12/22 21:12:20 by gabrioli         ###   ########.fr       */
+/*   Updated: 2026/01/02 16:17:33 by gabrioli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,16 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return (tmp);
 }
 
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	s1_len;
@@ -41,6 +51,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	j;
 	char	*new_str;
 
+	if (!s1)
+		s1 = malloc(1);
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
 	new_str = (char *)malloc(sizeof(char) * (s1_len + s2_len) + 1);
@@ -57,4 +69,20 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		new_str[i++] = s2[j++];
 	new_str[i] = '\0';
 	return (new_str);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	char	letter;
+
+	letter = (char)c;
+	while (*s)
+	{
+		if (*s == letter)
+			return ((char *)s);
+		s++;
+	}
+	if (*s == letter)
+		return ((char *)s);
+	return (NULL);
 }
