@@ -6,7 +6,7 @@
 /*   By: gabrioli <gabrioli@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 16:05:23 by gabrioli          #+#    #+#             */
-/*   Updated: 2026/01/02 18:50:10 by gabrioli         ###   ########.fr       */
+/*   Updated: 2026/01/06 02:03:56 by gabrioli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static char	*fill_line(int fd, char *buffer, char *left_str)
 	while (read_len > 0)
 	{
 		read_len = read(fd, buffer, BUFFER_SIZE);
+		buffer[read_len] = '\0';
 		if (read_len < 0)
 		{
 			free(buffer);
@@ -28,6 +29,8 @@ static char	*fill_line(int fd, char *buffer, char *left_str)
 		}
 		else if (read_len == 0)
 			break;
+		if (!left_str)
+			left_str = ft_calloc(1,1);
 		tmp = left_str;
 		left_str = ft_strjoin(tmp, buffer);
 		free(tmp);
@@ -38,7 +41,19 @@ static char	*fill_line(int fd, char *buffer, char *left_str)
 }
 static char	*set_line(char	*line)
 {
+	char	*left_str;
+	int	i;
+	int	size;
 
+	i = 0;
+	while (line[i] != '\n' && line[i] != '\0')
+		i++;
+	if (line[i] == 0 || line[1] == 0)
+		return (NULL);
+	size = ft_strlen(line);
+	left_str = ft_substr(line, i + 1, size - i);
+	line[i + 1] = '\0';
+	return (left_str);
 }
 
 char	*get_next_line(int fd)
@@ -67,9 +82,10 @@ int	main()
 	char *line;
 	int fd;
 
-	fd = open("test.txt", O_RDONLY);
+	fd = open("arquivo_nulo.txt", O_RDONLY);
 	while((line = get_next_line(fd)) != NULL) {
 		printf("%s", line);
 		free(line);
 	}
+	close(fd);
 }
